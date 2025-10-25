@@ -148,6 +148,7 @@ jupyter notebook notebooks/00_overview.ipynb
 - [x] **Notebook 02**: Instantiate PCamDataset and DataLoader with proper batching and shuffling
 - [x] **Notebook 02**: Grasp why shuffling prevents order-based overfitting and batch size impact on generalization
 - [x] **Notebook 03**: Build deterministic validation/test transforms and understand evaluation consistency
+- [x] **Notebook 04**: Create validation and test data loaders with proper evaluation settings
 - [ ] Build a 3-layer CNN architecture
 - [ ] Train model with GPU acceleration
 - [ ] Evaluate model with proper metrics
@@ -179,8 +180,14 @@ jupyter notebook notebooks/00_overview.ipynb
   - Understood why validation/test must be deterministic (no random augmentation)
   - Grasped normalization consistency across train/val/test splits
 
+- **Notebook 04**: Validation/Test DataLoaders
+  - Created `val_dataloader` and `test_dataloader` with batch_size=32, shuffle=False
+  - Verified batch shapes: `images=[32,3,96,96]`, `labels=[32]`
+  - Understood why larger batch sizes work for evaluation (no gradients needed)
+  - Grasped importance of shuffle=False for consistent validation results
+
 ### 🎯 Next Up
-- **Notebook 04**: Load Val/Test DataLoaders
+- **Notebook 05**: Simple CNN Architecture
 
 ---
 
@@ -202,8 +209,7 @@ jupyter notebook notebooks/00_overview.ipynb
 
 ## 🚀 Next Steps
 
-**Immediate (Notebooks 04-08):**
-- [ ] **Notebook 04**: Create validation and test data loaders
+**Immediate (Notebooks 05-08):**
 - [ ] **Notebook 05**: Define SimpleCNN architecture (3 conv blocks + 2 FC layers)
 - [ ] **Notebook 06**: Setup device, loss function, and optimizer
 - [ ] **Notebook 07**: Implement training and validation loops

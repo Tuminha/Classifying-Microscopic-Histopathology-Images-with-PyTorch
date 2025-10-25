@@ -147,6 +147,7 @@ jupyter notebook notebooks/00_overview.ipynb
 - [x] **Notebook 01**: Understand H&E staining, realistic augmentations for histopathology, and normalization mathematics
 - [x] **Notebook 02**: Instantiate PCamDataset and DataLoader with proper batching and shuffling
 - [x] **Notebook 02**: Grasp why shuffling prevents order-based overfitting and batch size impact on generalization
+- [x] **Notebook 03**: Build deterministic validation/test transforms and understand evaluation consistency
 - [ ] Build a 3-layer CNN architecture
 - [ ] Train model with GPU acceleration
 - [ ] Evaluate model with proper metrics
@@ -172,8 +173,14 @@ jupyter notebook notebooks/00_overview.ipynb
   - Verified batch shapes: `images=[8,3,96,96]`, `labels=[8]`
   - Understood shuffling prevents order-based overfitting
 
+- **Notebook 03**: Validation/Test Transforms
+  - Built deterministic `val_test_transform` (Resize → ToTensor → Normalize)
+  - Verified transform determinism: same input → same output
+  - Understood why validation/test must be deterministic (no random augmentation)
+  - Grasped normalization consistency across train/val/test splits
+
 ### 🎯 Next Up
-- **Notebook 03**: Validation/Test Transforms (deterministic, no augmentation)
+- **Notebook 04**: Load Val/Test DataLoaders
 
 ---
 
@@ -195,8 +202,7 @@ jupyter notebook notebooks/00_overview.ipynb
 
 ## 🚀 Next Steps
 
-**Immediate (Notebooks 03-08):**
-- [ ] **Notebook 03**: Build validation/test transforms (no augmentation)
+**Immediate (Notebooks 04-08):**
 - [ ] **Notebook 04**: Create validation and test data loaders
 - [ ] **Notebook 05**: Define SimpleCNN architecture (3 conv blocks + 2 FC layers)
 - [ ] **Notebook 06**: Setup device, loss function, and optimizer

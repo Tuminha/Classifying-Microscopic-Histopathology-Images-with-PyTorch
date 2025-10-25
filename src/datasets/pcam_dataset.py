@@ -17,15 +17,15 @@ class PCamDataset(Dataset):
     Custom Dataset for PatchCamelyon (PCam) images.
     
     Args:
-        csv_file (str): Path to CSV file with columns ['image_id', 'label']
+        csv_file (str): Path to CSV file with columns ['filename', 'label']
                         Example: 'data/train_labels.csv'
         img_dir (str): Directory containing images (default: '../data/pcam_images/')
         transform (callable, optional): Optional transform to apply to images
     
     CSV Format:
-        image_id,label
-        abc123.png,1
-        def456.png,0
+        filename,label
+        data/pcam_images/abc123.png,1
+        data/pcam_images/def456.png,0
         ...
     
     Returns:
@@ -62,7 +62,7 @@ class PCamDataset(Dataset):
         self.transform = transform
         
         # Validate CSV has required columns
-        required_columns = {'image_id', 'label'}
+        required_columns = {'filename', 'label'}
         if not required_columns.issubset(self.labels_df.columns):
             raise ValueError(
                 f"CSV must contain columns: {required_columns}. "
@@ -97,11 +97,19 @@ class PCamDataset(Dataset):
             idx = idx.tolist()
         
         # Get image filename and label from DataFrame
-        img_name = self.labels_df.iloc[idx]['image_id']
+        img_filename = self.labels_df.iloc[idx]['filename']
         label = self.labels_df.iloc[idx]['label']
         
-        # Construct full path
-        img_path = os.path.join(self.img_dir, img_name)
+        # The CSV filename column contains paths like 'data/pcam_images/618.png'
+        # Need to convert to relative path from notebook directory
+        # Remove 'data/' prefix if present since we're already in the notebooks/ directory
+        if img_filename.startswith('data/'):
+            # If running from notebooks/, need to go up one level: ../data/pcam_images/618.png
+            # Or if img_dir is '../data/pcam_images/', just use filename after 'data/pcam_images/'
+            img_name = img_filename.replace('data/pcam_images/', '')
+            img_path = os.path.join(self.img_dir, img_name)
+        else:
+            img_path = img_filename
         
         # Load image
         try:

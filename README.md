@@ -143,18 +143,39 @@ jupyter notebook notebooks/00_overview.ipynb
 - Generate and interpret **classification reports** (precision/recall/F1)
 
 ### 🏆 Key Achievements
-- [x] Understand PyTorch data pipeline (Dataset + DataLoader)
-- [x] Implement image transforms with augmentation
-- [x] Build a 3-layer CNN architecture
-- [x] Train model with GPU acceleration
-- [x] Evaluate model with proper metrics
+- [x] **Notebook 01**: Build training transform pipeline with augmentation (Resize → RandomHorizontalFlip → ColorJitter → ToTensor → Normalize)
+- [x] **Notebook 01**: Understand H&E staining, realistic augmentations for histopathology, and normalization mathematics
+- [x] **Notebook 02**: Instantiate PCamDataset and DataLoader with proper batching and shuffling
+- [x] **Notebook 02**: Grasp why shuffling prevents order-based overfitting and batch size impact on generalization
+- [ ] Build a 3-layer CNN architecture
+- [ ] Train model with GPU acceleration
+- [ ] Evaluate model with proper metrics
 - [ ] Experiment with hyperparameters (learning rate, batch size)
 - [ ] Try alternative architectures (ResNet, EfficientNet)
 - [ ] Implement class balancing strategies
 
 ---
 
-## ⚠️ Ethical & Clinical Note
+## 📈 Current Progress
+
+### ✅ Completed Notebooks
+- **Notebook 01**: Training Transforms & Augmentation
+  - Built `train_transform` with proper order: Resize → RandomHorizontalFlip → ColorJitter → ToTensor → Normalize
+  - Learned H&E staining basics and realistic augmentations for histopathology
+  - Mastered normalization mathematics: `(0.8 - 0.5) / 0.5 = 0.6`
+  - Verified tensor shapes: `[3, 96, 96]` and value ranges: `[-1, 1]`
+
+- **Notebook 02**: Training Dataset & DataLoader
+  - Fixed PCamDataset column mismatch (`filename` vs `image_id`)
+  - Instantiated `train_dataset` with 601 training samples
+  - Created `train_dataloader` with batch_size=8, shuffle=True
+  - Verified batch shapes: `images=[8,3,96,96]`, `labels=[8]`
+  - Understood shuffling prevents order-based overfitting
+
+### 🎯 Next Up
+- **Notebook 03**: Validation/Test Transforms (deterministic, no augmentation)
+
+---
 
 **🚨 CRITICAL: This is an educational project, NOT a medical device.**
 
@@ -174,6 +195,15 @@ jupyter notebook notebooks/00_overview.ipynb
 
 ## 🚀 Next Steps
 
+**Immediate (Notebooks 03-08):**
+- [ ] **Notebook 03**: Build validation/test transforms (no augmentation)
+- [ ] **Notebook 04**: Create validation and test data loaders
+- [ ] **Notebook 05**: Define SimpleCNN architecture (3 conv blocks + 2 FC layers)
+- [ ] **Notebook 06**: Setup device, loss function, and optimizer
+- [ ] **Notebook 07**: Implement training and validation loops
+- [ ] **Notebook 08**: Run test inference and generate metrics
+
+**Future Enhancements:**
 - [ ] Experiment with deeper architectures (ResNet18, EfficientNet-B0)
 - [ ] Implement learning rate scheduling
 - [ ] Add dropout layers to reduce overfitting
